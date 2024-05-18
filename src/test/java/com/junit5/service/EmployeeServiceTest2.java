@@ -80,8 +80,8 @@ public class EmployeeServiceTest {
 	@DisplayName("JUnit test for getAllEmployees operation")
 	public void givenEmployeesList_whenGetAllEmployees_thenReturnEmployeesList() {
 		// given - precondition or setup
-		Employee employee1 = new Employee("Dhandapani", "Sudhakar", "dhandapani.sudhakar@dtechideas.com");
-		Employee employee2 = new Employee("Kathirvel", "Sudhakar", "kathirvel.sudhakar@dtechideas.com");
+		Employee employee1 = new Employee(1L, "Peter", "Parker", "PeterParker@outlook.com");
+		Employee employee2 = new Employee(1L, "Jamie", "McShan", "jamieMcShan@outlook.com");
 		given(employeeRepository.findAll()).willReturn(List.of(employee1, employee2));
 		// when - action or the behaviour
 		List<Employee> employees = employeeService.getAllEmployees();
@@ -130,7 +130,7 @@ public class EmployeeServiceTest {
 	public void givenEmployee_whenUpdateEmployee_thenReturnEmployeeUpdated() {
 		// given - precondition or setup
 		given(employeeRepository.findById(employee.getId())).willReturn(Optional.of(employee));
-		employee.setEmail("meenakshi.r@dtechideas.com");
+		employee.setEmail("peter.parker@outlook.com");
 		given(employeeRepository.save(employee)).willReturn(employee);
 		// when - action or the behaviour
 		Employee updatedEmployee = employeeService.updateEmployee(employee.getId(), employee);

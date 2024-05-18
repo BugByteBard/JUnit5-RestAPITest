@@ -42,7 +42,7 @@ public class EmployeeServiceTest {
 
 	@BeforeEach
 	public void setUp() {
-		employee = new Employee(1L,"Meenakshi", "Ramesh", "meenakshi.ramesh@dtechideas.com");
+		employee = new Employee(1L, "Peter", "Parker", "PeterParker@outlook.com");
 	}
 
 	@AfterEach
@@ -50,7 +50,6 @@ public class EmployeeServiceTest {
 		employee = null;
 	}
 
-	
 	@Test
 	@DisplayName("JUnit test for saveEmployee operation")
 	public void givenEmployeeObject_whenSaveEmployee_thenReturnEmployeeObject() {
@@ -76,21 +75,21 @@ public class EmployeeServiceTest {
 		// then - verify the output
 		verify(employeeRepository, never()).save(any(Employee.class));
 	}
-	
+
 	@Test
 	@DisplayName("JUnit test for getAllEmployees operation")
 	public void givenEmployeesList_whenGetAllEmployees_thenReturnEmployeesList() {
 		// given - precondition or setup
-		Employee employee1 = new Employee("Dhandapani","Sudhakar","dhandapani.sudhakar@dtechideas.com");
-		Employee employee2 = new Employee("Kathirvel","Sudhakar","kathirvel.sudhakar@dtechideas.com");
-		given(employeeRepository.findAll()).willReturn(List.of(employee1,employee2));
+		Employee employee1 = new Employee("Dhandapani", "Sudhakar", "dhandapani.sudhakar@dtechideas.com");
+		Employee employee2 = new Employee("Kathirvel", "Sudhakar", "kathirvel.sudhakar@dtechideas.com");
+		given(employeeRepository.findAll()).willReturn(List.of(employee1, employee2));
 		// when - action or the behaviour
 		List<Employee> employees = employeeService.getAllEmployees();
 		// then - verify the output
 		assertThat(employees).isNotNull();
 		assertThat(employees.size()).isEqualTo(2);
 	}
-	
+
 	@Test
 	@DisplayName("JUnit test for getAllEmployees operation - Empty List (Negative Scenario)")
 	public void givenEmptyEmployeesList_whenGetAllEmployees_thenReturnEmptyEmployeesList() {
@@ -102,7 +101,7 @@ public class EmployeeServiceTest {
 		assertThat(employees).isEmpty();
 		assertThat(employees.size()).isEqualTo(0);
 	}
-	
+
 	@Test
 	@DisplayName("JUnit test for getEmployeeById operation")
 	public void givenEmployeeId_whenFindEmployeeById_thenReturnEmployee() {
@@ -114,7 +113,7 @@ public class EmployeeServiceTest {
 		assertThat(foundEmployee).isNotNull();
 		assertThat(foundEmployee.getId()).isEqualTo(employee.getId());
 	}
-	
+
 	@Test
 	@DisplayName("JUnit test for getEmployeeById operation - throw ResourceNotFoundException")
 	public void givenEmployeeId_whenFindEmployeeById_thenThrowResourceNotFoundException() {
@@ -125,7 +124,7 @@ public class EmployeeServiceTest {
 			employeeService.getEmployeeById(employee.getId());
 		});
 	}
-	
+
 	@Test
 	@DisplayName("JUnit test for updateEmployee operation")
 	public void givenEmployee_whenUpdateEmployee_thenReturnEmployeeUpdated() {
@@ -134,12 +133,12 @@ public class EmployeeServiceTest {
 		employee.setEmail("meenakshi.r@dtechideas.com");
 		given(employeeRepository.save(employee)).willReturn(employee);
 		// when - action or the behaviour
-		Employee updatedEmployee = employeeService.updateEmployee(employee.getId(),employee);
+		Employee updatedEmployee = employeeService.updateEmployee(employee.getId(), employee);
 		// then - verify the output
 		assertThat(updatedEmployee).isNotNull();
 		assertThat(updatedEmployee.getEmail()).isEqualTo(employee.getEmail());
 	}
-	
+
 	@Test
 	@DisplayName("JUnit test for deleteEmployeeById operation")
 	public void givenEmployeeId_whenDeleteEmployeeById_thenReturnTrue() {
@@ -149,6 +148,6 @@ public class EmployeeServiceTest {
 		// when - action or the behaviour
 		employeeService.deleteEmployeeById(employee.getId());
 		// then - verify the output
-		verify(employeeRepository,times(1)).deleteById(employee.getId());
+		verify(employeeRepository, times(1)).deleteById(employee.getId());
 	}
 }
